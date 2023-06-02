@@ -1,10 +1,19 @@
 import axios from 'axios'
 const baseUrl = '/api/blogs'
 
-const getAll = () => {
+const getAll = async () => {
   const request = axios.get(baseUrl)
-  return request.then(response => response.data)
+  const response = await request
+  return response.data
+}
+
+const postBlog = async (newBlog, user) => {
+  await axios.post(baseUrl, newBlog, {
+    headers: {
+      Authorization: `Bearer ${user.token}`
+    }
+  })
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll }
+export default { getAll, postBlog }
