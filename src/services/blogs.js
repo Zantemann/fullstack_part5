@@ -15,5 +15,18 @@ const postBlog = async (newBlog, user) => {
   })
 }
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll, postBlog }
+const addLike = async (updatedBlog) => {
+  const url = `${baseUrl}/${updatedBlog.id}`
+  await axios.put(url, updatedBlog)
+}
+
+const remove = async (blog, user) => {
+  const url = `${baseUrl}/${blog.id}`
+  await axios.delete(url, {
+    headers: {
+      Authorization: `Bearer ${user.token}`
+    }
+  })
+}
+
+export default { getAll, postBlog, addLike, remove }

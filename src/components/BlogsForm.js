@@ -11,7 +11,7 @@ const BlogsForm = ({
   handleBlogsChange,
   handleSuccessMessageChange
 }) => {
-  const [title, setTitle] = useState('') 
+  const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
 
@@ -24,12 +24,12 @@ const BlogsForm = ({
         url: url,
         likes: 0
       }
-      
+
       await blogService.postBlog(newBlog, user)
-  
+
       const updatedBlogs = await blogService.getAll()
       handleBlogsChange(updatedBlogs)
-      
+
       handleSuccessMessageChange(`a new blog ${newBlog.title} by ${newBlog.author} added`)
 
       setTitle('')
@@ -52,8 +52,8 @@ const BlogsForm = ({
       <Notification message={successMessage} className="success"/>
       <Notification message={errorMessage} className="error" />
       <p>{user.name} logged in <button onClick={handleLogout}>logout</button></p>
-      
-      <Togglable buttonLabel="new note" ref={blogFormRef}>
+
+      <Togglable buttonLabel="create new blog" ref={blogFormRef}>
         <h2>create new</h2>
         <form onSubmit={handleCreate}>
           <div>

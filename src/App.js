@@ -9,16 +9,16 @@ const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState('')
 
-  const [username, setUsername] = useState('') 
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  
+
   const [successMessage, setSuccessMessage] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const App = () => {
       })
       window.localStorage.setItem(
         'loggedNoteappUser', JSON.stringify(user)
-      ) 
+      )
       setUser(user)
       setUsername('')
       setPassword('')
@@ -51,14 +51,14 @@ const App = () => {
   }
 
   const handleLogout = () => {
-    window.localStorage.removeItem(`loggedNoteappUser`)
+    window.localStorage.removeItem('loggedNoteappUser')
     setUser(null)
   }
 
   return (
     <div>
-      {!user && 
-        <LoginForm 
+      {!user &&
+        <LoginForm
           handleLogin = {handleLogin}
           username = {username}
           password = {password}
@@ -78,11 +78,17 @@ const App = () => {
             handleSuccessMessageChange = {setSuccessMessage}
             handleBlogsChange = {setBlogs}
           />
-          {blogs.map(blog =>
-            <Blog key={blog.id} blog={blog} />
-          )}
+          {blogs
+            .sort((a,b) => b.likes -a.likes)
+            .map(blog =>
+              <Blog
+                key={blog.id}
+                blog={blog}
+                user={user}
+                handleBlogsChange={setBlogs}/>
+            )
+          }
         </div>
-        
       }
     </div>
   )
