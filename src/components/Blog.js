@@ -29,6 +29,8 @@ const Blog = ({ blog, user, handleBlogsChange }) => {
 
       await blogService.addLike(updatedBlog)
       setLikes(updatedBlog.likes)
+      const response = await blogService.getAll()
+      handleBlogsChange(response)
     } catch (error){
       console.error(error)
     }
@@ -48,8 +50,10 @@ const Blog = ({ blog, user, handleBlogsChange }) => {
     }
   }
 
+  const showRemove = user.name === blog.user.name
+
   return (
-    <div style={blogStyle}>
+    <div style={blogStyle} className="blog">
       <div>
         {blog.title} {blog.author}
         <button onClick={handleToggleDetails}>
@@ -63,7 +67,7 @@ const Blog = ({ blog, user, handleBlogsChange }) => {
           </a>
           <p>Likes: {likes} <button onClick={handleLike}>like</button></p>
           <p>{blog.user.name}</p>
-          <button onClick={handleRemove}>remove</button>
+          {showRemove && <button onClick={handleRemove}>remove</button>}
         </div>
       )}
     </div>

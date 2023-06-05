@@ -64,6 +64,7 @@ const BlogsForm = ({
               name="Title"
               onChange={({ target }) => setTitle(target.value)}
               placeholder='write title'
+              id='title'
             />
           </div>
           <div>
@@ -74,6 +75,7 @@ const BlogsForm = ({
               name="Author"
               onChange={({ target }) => setAuthor(target.value)}
               placeholder='write author'
+              id='author'
             />
           </div>
           <div>
@@ -84,9 +86,10 @@ const BlogsForm = ({
               name="Url"
               onChange={({ target }) => setUrl(target.value)}
               placeholder='write url'
+              id='url'
             />
           </div>
-          <button type="submit">create</button>
+          <button id='create' type="submit">create</button>
         </form>
       </Togglable>
     </div>
